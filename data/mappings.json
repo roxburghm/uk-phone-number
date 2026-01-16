@@ -1,0 +1,153 @@
+{
+  "columnB": {
+    "Allocated": true,
+    "Allocated(Closed Range)": true,
+    "Protected": false,
+    "Quarantined": false,
+    "Free": false,
+    "Designated": true,
+    "Reserved": false,
+    "Migrated": true
+  },
+  "columnD": {
+    "3 digit numbers": {
+      "length": 3,
+      "blocks": [
+        3
+      ]
+    },
+    "4 digit numbers": {
+      "length": 4,
+      "blocks": [
+        4
+      ]
+    },
+    "5 digit numbers": {
+      "length": 5,
+      "blocks": [
+        5
+      ]
+    },
+    "6 digit numbers": {
+      "length": 6,
+      "blocks": [
+        6
+      ]
+    },
+    "7 digit numbers": {
+      "length": 7,
+      "blocks": [
+        3,
+        4
+      ]
+    },
+    "8 digit numbers": {
+      "length": 8,
+      "blocks": [
+        4,
+        4
+      ]
+    },
+    "9 digit numbers": {
+      "length": 9,
+      "blocks": [
+        4,
+        5
+      ]
+    },
+    "10 digit numbers": {
+      "length": 10,
+      "blocks": [
+        4,
+        6
+      ]
+    },
+    "4+6": {
+      "length": 10,
+      "blocks": [
+        4,
+        6
+      ]
+    },
+    "(0)+10": {
+      "length": 10,
+      "blocks": [
+        4,
+        6
+      ]
+    },
+    "mixed": {
+      "length": 0,
+      "blocks": []
+    },
+    "Mixed 4+5 & 4+6": {
+      "length": 10,
+      "blocks": [
+        4,
+        6
+      ]
+    },
+    "Mixed 3+7 & 2+8": {
+      "length": 0,
+      "blocks": []
+    },
+    "3+7": {
+      "length": 10,
+      "blocks": [
+        3,
+        3,
+        4
+      ]
+    },
+    "2+8": {
+      "length": 10,
+      "blocks": [
+        2,
+        4,
+        4
+      ]
+    },
+    "4+5": {
+      "length": 9,
+      "blocks": [
+        4,
+        5
+      ]
+    },
+    "5+5": {
+      "length": 10,
+      "blocks": [
+        5,
+        5
+      ]
+    },
+    "5+4": {
+      "length": 9,
+      "blocks": [
+        5,
+        4
+      ]
+    },
+    "6+4": {
+      "length": 10,
+      "blocks": [
+        6,
+        4
+      ]
+    },
+    "4+4": {
+      "length": 8,
+      "blocks": [
+        4,
+        4
+      ]
+    },
+    "3+6": {
+      "length": 9,
+      "blocks": [
+        3,
+        6
+      ]
+    }
+  }
+}

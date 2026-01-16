@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UK Phone Number Validator Demo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            background: #f4f4f9;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .meta-corner {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            text-align: right;
+            font-size: 0.75rem;
+            color: #999;
+            line-height: 1.4;
+            z-index: 1000;
+        }
+
+        .meta-corner a {
+            color: #999;
+            text-decoration: none;
+            border-bottom: 1px dotted #ccc;
+        }
+
+        .meta-corner a:hover {
+            color: #666;
+            border-bottom-style: solid;
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        input.valid {
+            border-color: #28a745;
+        }
+
+        input.invalid {
+            border-color: #dc3545;
+        }
+
+        .result {
+            margin-top: 1rem;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .value {
+            font-family: monospace;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="meta-corner" id="metaCorner"></div>
+
+    <div class="card">
+        <h1>UK Phone Validator</h1>
+
+        <input type="text" id="phoneInput" placeholder="Enter phone number..." autocomplete="off" autofocus>
+
+        <div id="resultArea" class="result hidden">
+            <div class="row">
+                <span class="label">Valid</span>
+                <span class="value" id="isValid"></span>
+            </div>
+            <div class="row">
+                <span class="label">Local Format</span>
+                <span class="value" id="fmtLocal"></span>
+            </div>
+            <div class="row">
+                <span class="label">Int'l Short</span>
+                <span class="value" id="fmtIntlShort"></span>
+            </div>
+            <div class="row">
+                <span class="label">Int'l Long</span>
+                <span class="value" id="fmtIntlLong"></span>
+            </div>
+            <div class="row">
+                <span class="label">Prefix Length</span>
+                <span class="value" id="prefixLen"></span>
+            </div>
+            <div class="row">
+                <span class="label">Match Method</span>
+                <span class="value" id="matchMethod"></span>
+            </div>
+            <div class="row">
+                <span class="label">Rule</span>
+                <span class="value" id="ruleJson" style="font-size: 0.8rem; max-width: 60%;"></span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Load built library -->
+    <script src="../dist/uk-phone.min.js"></script>
+    <script>
+        const input = document.getElementById('phoneInput');
+        const resultArea = document.getElementById('resultArea');
+        const isValid = document.getElementById('isValid');
+        const fmtLocal = document.getElementById('fmtLocal');
+        const fmtIntlShort = document.getElementById('fmtIntlShort');
+        const fmtIntlLong = document.getElementById('fmtIntlLong');
+        const prefixLen = document.getElementById('prefixLen');
+        const matchMethod = document.getElementById('matchMethod');
+        const ruleJson = document.getElementById('ruleJson');
+        const metaCorner = document.getElementById('metaCorner');
+
+        const Lib = window.UKPhone;
+
+        let metaHtml = '';
+        if (Lib.version) {
+            metaHtml += `<div>v${Lib.version}</div>`;
+        }
+        if (Lib.getDataInfo) {
+            const info = Lib.getDataInfo();
+            if (info.date) {
+                const d = new Date(info.date);
+                metaHtml += `<div>Data: ${d.toLocaleDateString()} ${d.toLocaleTimeString()}</div>`;
+            }
+            if (info.url) {
+                metaHtml += `<div><a href="${info.url}" target="_blank">Source</a></div>`;
+            }
+        }
+        metaCorner.innerHTML = metaHtml;
+
+        input.addEventListener('input', () => {
+            const val = input.value;
+            if (!val) {
+                resultArea.classList.add('hidden');
+                input.className = '';
+                return;
+            }
+
+            const res = Lib.validate(val);
+
+            resultArea.classList.remove('hidden');
+            if (res.valid) {
+                input.className = 'valid';
+                isValid.textContent = '✅ Yes';
+                isValid.style.color = 'green';
+                fmtLocal.textContent = res.formatted;
+                fmtIntlShort.textContent = res.formattedInternational.short;
+                fmtIntlLong.textContent = res.formattedInternational.long;
+                prefixLen.textContent = res.prefixLength;
+                matchMethod.textContent = res.matchMethod;
+                ruleJson.textContent = JSON.stringify(res.rule || {});
+            } else {
+                input.className = 'invalid';
+                isValid.textContent = '❌ No';
+                isValid.style.color = 'red';
+                fmtLocal.textContent = '-';
+                fmtIntlShort.textContent = '-';
+                fmtIntlLong.textContent = '-';
+                prefixLen.textContent = '-';
+                matchMethod.textContent = res.matchMethod || '-';
+                ruleJson.textContent = '-';
+            }
+        });
+    </script>
+</body>
+
+</html>

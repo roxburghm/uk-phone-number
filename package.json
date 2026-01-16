@@ -1,0 +1,29 @@
+{
+  "name": "uk-phone-number",
+  "version": "1.0.3",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "update-data": "node scripts/update-data.js",
+    "build": "esbuild src/index.js --bundle --outfile=dist/uk-phone.js --global-name=UKPhone --platform=browser",
+    "build:min": "esbuild src/index.js --bundle --minify --sourcemap --format=iife --global-name=UKPhone --outfile=dist/uk-phone.min.js",
+    "inspect": "node scripts/inspect.js",
+    "prepublishOnly": "npm run update-data && npm run build && npm run build:min"
+  },
+  "keywords": [],
+  "author": "Matt Roxburgh",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roxburghm/uk-phone-number.git"
+  },
+  "description": "Library for validating and formatting UK phone numbers",
+  "dependencies": {},
+  "devDependencies": {
+    "adm-zip": "^0.5.16",
+    "csv-parse": "^6.1.0",
+    "enquirer": "^2.4.1",
+    "jest": "^30.2.0",
+    "esbuild": "^0.27.2"
+  }
+}
