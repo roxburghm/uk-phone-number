@@ -16,8 +16,16 @@ var UKPhone = (() => {
     "package.json"(exports, module) {
       module.exports = {
         name: "uk-phone-number",
-        version: "1.0.3",
-        main: "index.js",
+        version: "1.0.4",
+        main: "src/index.js",
+        module: "src/index.js",
+        exports: {
+          ".": {
+            require: "./src/index.js",
+            import: "./src/index.js",
+            default: "./src/index.js"
+          }
+        },
         scripts: {
           test: "jest",
           "update-data": "node scripts/update-data.js",
@@ -29,7 +37,11 @@ var UKPhone = (() => {
         keywords: [],
         author: "Matt Roxburgh",
         license: "MIT",
-        description: "",
+        repository: {
+          type: "git",
+          url: "git+https://github.com/roxburghm/uk-phone-number.git"
+        },
+        description: "Library for validating and formatting UK phone numbers",
         dependencies: {},
         devDependencies: {
           "adm-zip": "^0.5.16",
